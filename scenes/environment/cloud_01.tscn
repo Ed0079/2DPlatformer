@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://nruxia8wqpiw"]
+
+[ext_resource type="Texture2D" uid="uid://2op7br7hwi73" path="res://assets/environment/cloud_3.png" id="1_xdxf8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hto2"]
+size = Vector2(21, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pq0uo"]
+size = Vector2(30, 4)
+
+[node name="cloud_01" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -10.3039)
+texture = ExtResource("1_xdxf8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -6.3039)
+shape = SubResource("RectangleShape2D_3hto2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.3039)
+shape = SubResource("RectangleShape2D_pq0uo")

@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=3 uid="uid://dym752mqqvj3m"]
+
+[ext_resource type="Texture2D" uid="uid://cnw1x2rnvjdyf" path="res://assets/tilesets/tilesetOpenGameBackground.png" id="1_08jql"]
+[ext_resource type="Script" path="res://scripts/start_menu.gd" id="1_hid5k"]
+[ext_resource type="FontFile" uid="uid://fghew0uicxmq" path="res://assets/fonts/komika_axis/KOMIKAX_.ttf" id="4_men7e"]
+[ext_resource type="AudioStream" uid="uid://dtm3hc2wg3ftw" path="res://assets/audio/pixelloop.mp3" id="4_sqh5n"]
+
+[node name="start_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hid5k")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 2.0
+offset_right = 1152.0
+offset_bottom = 644.0
+texture = ExtResource("1_08jql")
+
+[node name="title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 385.0
+offset_top = 163.0
+offset_right = 761.0
+offset_bottom = 236.0
+theme_override_fonts/font = ExtResource("4_men7e")
+theme_override_font_sizes/font_size = 44
+text = "2d Platformer"
+
+[node name="start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 265.0
+offset_right = 670.0
+offset_bottom = 328.0
+theme_override_fonts/font = ExtResource("4_men7e")
+theme_override_font_sizes/font_size = 30
+text = "Start
+"
+
+[node name="setting" type="Button" parent="."]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 356.0
+offset_right = 673.0
+offset_bottom = 419.0
+theme_override_fonts/font = ExtResource("4_men7e")
+theme_override_font_sizes/font_size = 30
+text = "Settings
+"
+
+[node name="exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 448.0
+offset_right = 673.0
+offset_bottom = 511.0
+theme_override_fonts/font = ExtResource("4_men7e")
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_sqh5n")
+autoplay = true
+
+[node name="LinkButton" type="LinkButton" parent="."]
+layout_mode = 0
+offset_left = 902.0
+offset_top = 587.0
+offset_right = 1153.0
+offset_bottom = 639.0
+theme_override_colors/font_color = Color(0.341176, 0, 0.0862745, 1)
+theme_override_fonts/font = ExtResource("4_men7e")
+theme_override_font_sizes/font_size = 30
+action_mode = 0
+text = "GitHub/Ed0079"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="setting" to="." method="_on_setting_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="LinkButton" to="." method="_on_link_button_pressed"]

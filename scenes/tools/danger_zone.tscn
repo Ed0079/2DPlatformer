@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://baspxqpxsjvyf"]
+
+[ext_resource type="Script" path="res://scripts/danger_zone.gd" id="1_d3dbh"]
+
+[node name="DangerZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_d3dbh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://s50j076xbhsf"]
+
+[ext_resource type="Script" path="res://scripts/GameOver.gd" id="1_p2w3w"]
+[ext_resource type="Texture2D" uid="uid://cnw1x2rnvjdyf" path="res://assets/tilesets/tilesetOpenGameBackground.png" id="2_c8jm8"]
+[ext_resource type="FontFile" uid="uid://ctc3h36kdwq4g" path="res://assets/fonts/comic_book/Comic Book Bold Italic.otf" id="3_lror3"]
+[ext_resource type="AudioStream" uid="uid://bbiskxt5bdeij" path="res://assets/audio/playerhit.mp3" id="4_4cxgh"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_p2w3w")
+
+[node name="background" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 1150.0
+offset_bottom = 654.0
+texture = ExtResource("2_c8jm8")
+
+[node name="gameover" type="Label" parent="."]
+texture_filter = 1
+offset_left = 433.0
+offset_top = 171.0
+offset_right = 718.0
+offset_bottom = 258.0
+theme_override_fonts/font = ExtResource("3_lror3")
+theme_override_font_sizes/font_size = 61
+text = "GameOver"
+metadata/_edit_use_anchors_ = true
+
+[node name="menu" type="Button" parent="."]
+texture_filter = 1
+offset_left = 298.0
+offset_top = 400.0
+offset_right = 474.0
+offset_bottom = 485.0
+theme_override_fonts/font = ExtResource("3_lror3")
+theme_override_font_sizes/font_size = 45
+text = "Menu"
+
+[node name="exit" type="Button" parent="."]
+texture_filter = 1
+offset_left = 680.0
+offset_top = 400.0
+offset_right = 856.0
+offset_bottom = 485.0
+theme_override_fonts/font = ExtResource("3_lror3")
+theme_override_font_sizes/font_size = 45
+text = "Exit"
+
+[node name="retry" type="Button" parent="."]
+texture_filter = 1
+offset_left = 478.0
+offset_top = 300.0
+offset_right = 679.0
+offset_bottom = 375.0
+theme_override_fonts/font = ExtResource("3_lror3")
+theme_override_font_sizes/font_size = 45
+text = "Retry"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4cxgh")
+autoplay = true
+
+[connection signal="pressed" from="menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="retry" to="." method="_on_retry_pressed"]

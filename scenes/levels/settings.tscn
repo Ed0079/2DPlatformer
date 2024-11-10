@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=3 uid="uid://b368gq88k0w8h"]
+
+[ext_resource type="Script" path="res://scripts/settings.gd" id="1_1yv77"]
+[ext_resource type="Texture2D" uid="uid://cnw1x2rnvjdyf" path="res://assets/tilesets/tilesetOpenGameBackground.png" id="1_igd0w"]
+[ext_resource type="PackedScene" uid="uid://ds5mpsypl21mv" path="res://scenes/tools/volume_slider.tscn" id="3_lrh0m"]
+[ext_resource type="FontFile" uid="uid://dr1n6lu1xu464" path="res://assets/fonts/anime_ace_bb/animeace2bb_tt/animeace2_reg.ttf" id="3_nuw5f"]
+[ext_resource type="AudioStream" uid="uid://dtm3hc2wg3ftw" path="res://assets/audio/pixelloop.mp3" id="5_ls5ft"]
+
+[node name="settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1yv77")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1.0
+offset_right = 1146.0
+offset_bottom = 638.0
+texture = ExtResource("1_igd0w")
+
+[node name="title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 384.0
+offset_top = 59.0
+offset_right = 804.0
+offset_bottom = 122.0
+theme_override_fonts/font = ExtResource("3_nuw5f")
+theme_override_font_sizes/font_size = 44
+text = "2d Platformer"
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 144.0
+offset_right = 785.0
+offset_bottom = 573.0
+
+[node name="back" type="Button" parent="ItemList"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 378.0
+offset_right = 109.0
+offset_bottom = 421.0
+theme_override_font_sizes/font_size = 25
+text = "< 
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemList"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 88.0
+offset_top = 80.0
+offset_right = 270.0
+offset_bottom = 264.0
+theme_override_constants/separation = 7
+
+[node name="master_label" type="Label" parent="ItemList/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nuw5f")
+theme_override_font_sizes/font_size = 19
+text = "Master Volume"
+
+[node name="master" parent="ItemList/VBoxContainer" instance=ExtResource("3_lrh0m")]
+texture_filter = 1
+layout_mode = 2
+bus_name = "Master"
+
+[node name="stage_label" type="Label" parent="ItemList/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nuw5f")
+theme_override_font_sizes/font_size = 20
+text = "Stage Volume
+"
+
+[node name="stage" parent="ItemList/VBoxContainer" instance=ExtResource("3_lrh0m")]
+texture_filter = 1
+layout_mode = 2
+bus_name = "Stage"
+
+[node name="effects_label" type="Label" parent="ItemList/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nuw5f")
+theme_override_font_sizes/font_size = 20
+text = "Effects Volume"
+
+[node name="effects" parent="ItemList/VBoxContainer" instance=ExtResource("3_lrh0m")]
+texture_filter = 1
+layout_mode = 2
+bus_name = "Effects"
+
+[node name="unlimited_lifes" type="CheckButton" parent="ItemList/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nuw5f")
+text = "unlimited lives"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ItemList/VBoxContainer/unlimited_lifes"]
+stream = ExtResource("5_ls5ft")
+autoplay = true
+
+[connection signal="pressed" from="ItemList/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ItemList/VBoxContainer/unlimited_lifes" to="." method="_on_unlimited_lifes_pressed"]

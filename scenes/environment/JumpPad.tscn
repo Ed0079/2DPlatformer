@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgxcfscu1csoq"]
+
+[ext_resource type="Texture2D" uid="uid://drdhwdv40fft6" path="res://assets/items/bumper.png" id="1_k3nrj"]
+[ext_resource type="Script" path="res://scripts/JumpPad.gd" id="2_eteu4"]
+[ext_resource type="AudioStream" uid="uid://dqoogqrv7qmvr" path="res://assets/audio/qubodup-cfork-ccby3-jump.ogg" id="3_rqjwl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwtje"]
+size = Vector2(94.2546, 19.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ika5e"]
+size = Vector2(105, 51.05)
+
+[node name="jumppad" type="Sprite2D"]
+position = Vector2(0, -22)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("1_k3nrj")
+script = ExtResource("2_eteu4")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -1.81818)
+collision_mask = 3
+
+[node name="jumparea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_nwtje")
+debug_color = Color(3.1285e-06, 0.637409, 0.350127, 0.419608)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0.227264, -1.81818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.227257, 14.5455)
+shape = SubResource("RectangleShape2D_ika5e")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_rqjwl")
+volume_db = -5.0
+bus = &"Effects"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

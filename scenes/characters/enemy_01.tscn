@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://12y5vl3uh866"]
+
+[ext_resource type="Script" path="res://scripts/enemy_01.gd" id="1_8ujfg"]
+[ext_resource type="Texture2D" uid="uid://dkmk2lp3s5rdh" path="res://assets/enemies/slime_monster_spritesheet.png" id="2_cy2fk"]
+[ext_resource type="PackedScene" uid="uid://baspxqpxsjvyf" path="res://scenes/tools/danger_zone.tscn" id="3_d10d4"]
+[ext_resource type="AudioStream" uid="uid://bbiskxt5bdeij" path="res://assets/audio/playerhit.mp3" id="4_ehup4"]
+
+[sub_resource type="Animation" id="Animation_1dvm8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ng56h"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e1ie1"]
+_data = {
+"RESET": SubResource("Animation_1dvm8"),
+"move": SubResource("Animation_ng56h")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7baiy"]
+radius = 15.0
+height = 62.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljynj"]
+size = Vector2(52, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rggpb"]
+radius = 17.0
+height = 78.0
+
+[node name="Enemy01" type="CharacterBody2D"]
+position = Vector2(0, -22)
+script = ExtResource("1_8ujfg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -2)
+scale = Vector2(3, 3)
+texture = ExtResource("2_cy2fk")
+flip_h = true
+hframes = 3
+vframes = 3
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e1ie1")
+}
+speed_scale = 0.75
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7baiy")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-2, -19)
+shape = SubResource("RectangleShape2D_ljynj")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-50, -5)
+scale = Vector2(3, 3)
+target_position = Vector2(0, 15)
+
+[node name="DangerZone" parent="." instance=ExtResource("3_d10d4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerZone"]
+position = Vector2(-1, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rggpb")
+debug_color = Color(0.903394, 0.283192, 0.315911, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ehup4")
+
+[connection signal="body_shape_entered" from="hitbox" to="." method="_on_hitbox_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

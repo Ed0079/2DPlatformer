@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://6qqj4y0p8pbl"]
+
+[ext_resource type="Texture2D" uid="uid://drdhwdv40fft6" path="res://assets/items/bumper.png" id="1_qygv4"]
+[ext_resource type="Script" path="res://scripts/sidejump.gd" id="2_csqd6"]
+[ext_resource type="AudioStream" uid="uid://dqoogqrv7qmvr" path="res://assets/audio/qubodup-cfork-ccby3-jump.ogg" id="3_r0pib"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2ens"]
+radius = 33.0
+height = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn42n"]
+size = Vector2(105, 40.2523)
+
+[node name="sidejump" type="Sprite2D"]
+modulate = Color(3.85046e-07, 0.994332, 0.926934, 1)
+texture_filter = 1
+texture = ExtResource("1_qygv4")
+script = ExtResource("2_csqd6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, -9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_h2ens")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0.227264, -1.81818)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.227257, 19.9443)
+shape = SubResource("RectangleShape2D_cn42n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_r0pib")
+volume_db = -5.0
+bus = &"Effects"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
